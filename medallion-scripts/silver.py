@@ -3,8 +3,8 @@ from pyspark.sql.functions import col, regexp_replace
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder.appName("SilverLayerProcessing").getOrCreate()
-silver_path = "medallion/silver/"
-bronze_path = "/Users/adhithya/datascrape/medallion/bronze"
+silver_path = "/Users/adhithya/datascrape/medallion/silver/"
+bronze_path = "/Users/adhithya/datascrape/medallion/bronze/"
 df_raw = spark.read.parquet(bronze_path)
 
 df_silver = df_raw.withColumn("Price", regexp_replace(col("Price"), "[₹,\/Piece]", "").cast("double")) \

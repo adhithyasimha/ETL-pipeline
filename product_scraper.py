@@ -56,11 +56,9 @@ def extract_product_info(link, category, pre_location=None):
         product_webpage = requests.get(link, headers=HEADERS)
         product_soup = BeautifulSoup(product_webpage.text, "html.parser")
 
-        # --- Product Name ---
         product_name = product_soup.find("h1", class_="bo center-heading centerHeadHeight")
         product_name = product_name.text.strip() if product_name else "N/A"
 
-        # --- Price ---
         price_tag = product_soup.find("span", class_="bo price-unit")
         price = price_tag.text.strip() if price_tag else "N/A"
         unit_tag = product_soup.find("span", class_="bo unit")
@@ -111,7 +109,7 @@ def extract_product_info(link, category, pre_location=None):
         }
 
     except Exception as e:
-        print(f"❌ Failed to scrape {link} due to {e}")
+        print(f"Failed to scrape {link} due to {e}")
         return None
 
 
@@ -154,6 +152,6 @@ if __name__ == "__main__":
     if all_dataframes:
         final_df = pd.concat(all_dataframes, ignore_index=True)
         final_df.to_json("scraped_content/indiamart_products.json", orient="records", indent=2)
-        print(f"✅ Saved {len(final_df)} products to 'indiamart_products.json'")
+        print(f"Saved {len(final_df)} products to 'indiamart_products.json'")
     else:
-        print("⚠ No products found.")
+        print("No products found.")

@@ -4,8 +4,8 @@ import os
 
 spark = SparkSession.builder.appName("IndiaMartMedallion").getOrCreate()
 
-bronze_path = "medallion/bronze/"
-json_file = "scraped_content/indiamart_products.json"
+bronze_path = "/Users/adhithya/datascrape/medallion/bronze/"
+json_file = "/Users/adhithya/datascrape/scraped_content/indiamart_products.json"
 df_bronze = spark.read.option("multiline", "true").json(json_file)
 
 print(f"Records loaded: {df_bronze.count()}")
