@@ -1,15 +1,15 @@
 import scrapy
 import re
-
+import os
+from airflow.providers.standard.operators.bash import BashOperator
 class IndiaMartSubcategoriesSpider(scrapy.Spider):
-    name = "indiamart_subcategories"
+    name = "indiamart_categories"
     allowed_domains = ["dir.indiamart.com"]
     start_urls = [
         "https://dir.indiamart.com/industry/drugs-medicines.html",
+        "https://dir.indiamart.com/industry/builders-hardware.html"
     ]
-
     def parse(self, response):
-        # Dynamically extract the category key from the URL
         match = re.search(r'/industry/([^/.]+)\.html', response.url)
         category_key = match.group(1) if match else "unknown"
 
